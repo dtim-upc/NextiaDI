@@ -292,7 +292,15 @@ public class NextiaDI {
 
     }
 
+    // This function generates the globalGraph (minimalGraph) from the integrated one or a previous one
+    public Model generateMinimalGraph(Model integratedGraph){
+        Graph minimalG = new Graph();
 
+        minimalG.setModel(integratedGraph);
+        minimalG.minimalOverClasses();
+        minimalG.minimalOverDataProperties();
+        return minimalG.getModel();
+    }
 
 
 //    public void findProperties(Class<?> concept) {
