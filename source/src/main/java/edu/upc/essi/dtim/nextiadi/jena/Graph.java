@@ -1,9 +1,9 @@
 package edu.upc.essi.dtim.nextiadi.jena;
 
+import edu.upc.essi.dtim.NextiaCore.discovery.Alignment;
 import edu.upc.essi.dtim.nextiadi.config.Vocabulary;
 import edu.upc.essi.dtim.nextiadi.exceptions.NoDomainForPropertyException;
 import edu.upc.essi.dtim.nextiadi.exceptions.NoRangeForPropertyException;
-import edu.upc.essi.dtim.nextiadi.models.Alignment;
 import edu.upc.essi.dtim.nextiadi.models.Subject;
 import lombok.Getter;
 import org.apache.jena.query.*;

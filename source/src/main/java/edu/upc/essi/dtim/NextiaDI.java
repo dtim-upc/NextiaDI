@@ -5,7 +5,7 @@ import edu.upc.essi.dtim.nextiadi.config.Vocabulary;
 import edu.upc.essi.dtim.nextiadi.exceptions.NoDomainForPropertyException;
 import edu.upc.essi.dtim.nextiadi.exceptions.NoRangeForPropertyException;
 import edu.upc.essi.dtim.nextiadi.jena.Graph;
-import edu.upc.essi.dtim.nextiadi.models.Alignment;
+import edu.upc.essi.dtim.NextiaCore.discovery.Alignment;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
