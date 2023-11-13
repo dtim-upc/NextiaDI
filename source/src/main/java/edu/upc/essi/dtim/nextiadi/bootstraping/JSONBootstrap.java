@@ -78,18 +78,18 @@ public class JSONBootstrap extends DataSource{
 
 	public Model bootstrapSchema(String iri, InputStream fis) throws FileNotFoundException {
 		reset();
-		JsonValue φ = Json.createReader(fis).readValue();
+		JsonValue phi = Json.createReader(fis).readValue();
 
-		Value(φ,iri,iri);
+		Value(phi,iri,iri);
 		return G_source.getModel();
 	}
 
 	private Model bootstrap(String D, String path) throws FileNotFoundException {
 		InputStream fis = new FileInputStream(path);
 
-		JsonValue φ = Json.createReader(fis).readValue();
+		JsonValue phi = Json.createReader(fis).readValue();
 
-		Value(φ,D,D);
+		Value(phi,D,D);
 
 		String SELECT = attributes.stream().map(p -> {
 			if (p.getLeft().equals(p.getRight())) return p.getLeft();
@@ -140,16 +140,16 @@ public class JSONBootstrap extends DataSource{
 		G_source.write(file,lang);
 	}
 
-	private void Value(JsonValue φ, String P, String implP) {
-		if (φ.getValueType() == JsonValue.ValueType.STRING) LiteralString((JsonString)φ, P, implP);
-		else if (φ.getValueType() == JsonValue.ValueType.NUMBER) LiteralNumber((JsonNumber)φ, P, implP);
-		else if (φ.getValueType() == JsonValue.ValueType.OBJECT) Object((JsonObject)φ, P, implP);
-		else if (φ.getValueType() == JsonValue.ValueType.ARRAY) Array((JsonArray)φ, P, "Object", implP);
+	private void Value(JsonValue phi, String P, String implP) {
+		if (phi.getValueType() == JsonValue.ValueType.STRING) LiteralString((JsonString)phi, P, implP);
+		else if (phi.getValueType() == JsonValue.ValueType.NUMBER) LiteralNumber((JsonNumber)phi, P, implP);
+		else if (phi.getValueType() == JsonValue.ValueType.OBJECT) Object((JsonObject)phi, P, implP);
+		else if (phi.getValueType() == JsonValue.ValueType.ARRAY) Array((JsonArray)phi, P, "Object", implP);
 	}
 
-	private void Object (JsonObject φ, String P, String implP) {
-		φ.keySet().forEach(k -> {
-			JsonValue v = φ.get(k);
+	private void Object (JsonObject phi, String P, String implP) {
+		phi.keySet().forEach(k -> {
+			JsonValue v = phi.get(k);
 
 //			G_source.add(P+".has_"+k, RDF.type, RDF.Property);
 //			G_source.add( P+".has_"+k, RDFS.domain, new ResourceImpl(P) );
@@ -200,7 +200,7 @@ public class JSONBootstrap extends DataSource{
 		G_source.addLiteral( createIRI(P) , RDFS.label, P.substring(P.lastIndexOf('.') + 1));
 	}
 
-	private void Array (JsonArray φ, String P, String key, String implP) {
+	private void Array (JsonArray phi, String P, String key, String implP) {
 		String label = "ContainerMembershipProperty"+CMPCounter;
 		String uu = P+"."+label; CMPCounter++;
 		String uuIRI = createIRI(uu);
@@ -209,14 +209,14 @@ public class JSONBootstrap extends DataSource{
 		G_source.add(uuIRI, RDFS.domain, createIRI(P));
 		// TODO: some ds have empty array, check below example images array
 //		https://github.com/cmoa/collection/blob/master/cmoa/00078d13-d7c7-4f1b-bbe2-b9afcc25fcbd.json
-		if(φ.size() > 0) {
-			JsonValue v = φ.get(0);
+		if(phi.size() > 0) {
+			JsonValue v = phi.get(0);
 			if (v.getValueType() == JsonValue.ValueType.STRING || v.getValueType() == JsonValue.ValueType.NUMBER) {
-				Value(φ.get(0), uu, generateArrayAlias(P+"."+key));
+				Value(phi.get(0), uu, generateArrayAlias(P+"."+key));
 			} else if (v.getValueType() == JsonValue.ValueType.OBJECT) {
 				String u = key; ObjectCounter++;
 				G_source.add( uuIRI, RDFS.range, createIRI(P + "." + u) );
-				Value(φ.get(0), P + "." + u, generateArrayAlias(P+"."+key));
+				Value(phi.get(0), P + "." + u, generateArrayAlias(P+"."+key));
 			}
 			lateralViews.add(Pair.of(removeSeqs(P+"."+key),generateArrayAlias(P+"."+key)));
 		} else {
@@ -232,12 +232,12 @@ public class JSONBootstrap extends DataSource{
 		attributes.add(Pair.of(P,implP));
 	}
 
-	private void LiteralString (JsonString φ,  String P, String implP) {
+	private void LiteralString (JsonString phi,  String P, String implP) {
 		G_source.add(createIRI(P),RDFS.range,XSD.xstring);
 		attributes.add(Pair.of(P,implP));
 	}
 
-	private void LiteralNumber (JsonNumber φ, String P, String implP) {
+	private void LiteralNumber (JsonNumber phi, String P, String implP) {
 		G_source.add( createIRI(P), RDFS.range, XSD.integer);
 		attributes.add(Pair.of(P,implP));
 	}

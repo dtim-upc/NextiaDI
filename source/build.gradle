@@ -34,6 +34,11 @@ dependencies {
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
+
+    ////////////////////////////////////////// NextiaCore //////////////////////////////////////////
+    implementation fileTree(dir: 'lib', include: ['*.jar'])
+    runtimeOnly(fileTree(dir: 'lib', include: ['*.jar']))
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 test {
@@ -114,11 +119,12 @@ publishing {
     }
     repositories {
         maven {
+            /*
             credentials {
                 // nexusUsername and nexusPassword are in gradle.properties file.
                 username nexusUsername
                 password nexusPassword
-            }
+            }*/
 
             def releasesRepoUrl = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
             def snapshotsRepoUrl = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'

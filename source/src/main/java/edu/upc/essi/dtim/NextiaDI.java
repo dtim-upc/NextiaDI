@@ -5,7 +5,7 @@ import edu.upc.essi.dtim.nextiadi.config.Vocabulary;
 import edu.upc.essi.dtim.nextiadi.exceptions.NoDomainForPropertyException;
 import edu.upc.essi.dtim.nextiadi.exceptions.NoRangeForPropertyException;
 import edu.upc.essi.dtim.nextiadi.jena.Graph;
-import edu.upc.essi.dtim.nextiadi.models.Alignment;
+import edu.upc.essi.dtim.NextiaCore.discovery.Alignment;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
@@ -292,7 +292,15 @@ public class NextiaDI {
 
     }
 
+    // This function generates the globalGraph (minimalGraph) from the integrated one or a previous one
+    public Model generateMinimalGraph(Model integratedGraph){
+        Graph minimalG = new Graph();
 
+        minimalG.setModel(integratedGraph);
+        minimalG.minimalOverClasses();
+        minimalG.minimalOverDataProperties();
+        return minimalG.getModel();
+    }
 
 
 //    public void findProperties(Class<?> concept) {
