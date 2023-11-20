@@ -53,6 +53,7 @@ test {
 //    with jar
 //}
 task uberJar(type: Jar) {
+    duplicatesStrategy = 'exclude'
     archiveClassifier = 'uber'
 
     from sourceSets.main.output
