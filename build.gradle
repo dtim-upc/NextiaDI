@@ -140,3 +140,38 @@ javadoc {
         options.addBooleanOption('html5', true)
     }
 }
+
+//Task to export NextiaCore
+task copyJarToOtherProjects() {
+    uberJar
+
+    def ODIN = '..\\ODIN\\api\\lib'
+
+    def nextiaDIJarPath = "build/libs/nextiadi-0.1.0-SNAPSHOT-uber.jar"
+
+    // Define the target projects
+    def targetProjects = [ODIN]
+
+    // Create a copy task for each project directory
+    targetProjects.each { path ->
+        // Ensure the directory exists
+        new File(path).mkdirs()
+
+        // Remove previous versions
+        new File(path, 'NextiaDI.jar').delete()
+        new File(path, 'nextiadi-0.1.0-SNAPSHOT-uber.jar').delete()
+
+        copy {
+            println "JAR copying to project: $path"
+            from nextiaDIJarPath
+            rename { 'NextiaDI.jar' }
+            into path
+            doLast {
+                println "JAR copied to project: $path"
+            }
+        }
+    }
+}
+
+// La tarea de copia a los otros proyectos se ejecuta después de la tarea de generación de JAR
+copyJarToOtherProjects.dependsOn uberJar
