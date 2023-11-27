@@ -251,46 +251,6 @@ public class NextiaDI {
         return graphO.generateOnlyIntegrations();
     }
 
-    public Model getOldMinimalGraph(){
-        Graph minimalG = new Graph();
-
-        minimalG.setModel(graphO.getModel());
-        minimalG.minimalIDProperties();
-        minimalG.minimalIOProperties();
-        minimalG.minimalClasses();
-
-
-
-        return minimalG.getModel();
-    }
-
-    public Model getMinimalGraph(){
-        Graph minimalG = new Graph();
-
-        minimalG.setModel(graphO.getModel());
-
-//        minimalG.test();
-//
-//        return minimalG.minimalClassesConstruct();
-//
-        minimalG.minimalOverClasses();
-        minimalG.minimalOverDataProperties();
-        return minimalG.getModel();
-
-
-    }
-
-    public Model getMinimalGraph2(){
-        Graph minimalG = new Graph();
-
-        minimalG.setModel(graphO.getModel());
-//
-        minimalG.minimalOverClasses();
-        minimalG.minimalOverDataProperties();
-        return minimalG.getModel();
-
-
-    }
 
     // This function generates the globalGraph (minimalGraph) from the integrated one or a previous one
     public Model generateMinimalGraph(Model integratedGraph){
@@ -331,7 +291,7 @@ public class NextiaDI {
 //        a.setIdentifier(true);
 
         Model integratedModel = n.Integrate(graphA, graphB, al);
-        Model minimal = n.getMinimalGraph();
+        Model minimal = n.generateMinimalGraph(integratedModel);
 
         try {
             RDFDataMgr.write(new FileOutputStream("/Users/javierflores/Documents/upc/projects/NextiaDI/source/source_schemas/minimal.ttl"), minimal, Lang.TURTLE);
