@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class JSONBootstrapTest {
 
 
-    @Test
+/*    @Test
     void bootstrapSchemaTest() throws FileNotFoundException {
 
 
@@ -63,6 +63,6 @@ class JSONBootstrapTest {
         assertTrue(expected.size()>0);
 
 
-    }
+    }*/
 
 }

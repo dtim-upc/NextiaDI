@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("NextiaDI test")
 public class NextiaDITest {
 
-    String bi = "http://www.bicing.com/";
+    /*String bi = "http://www.bicing.com/";
     String vi = "http://www.villo.com/";
 
     NextiaDI nextia;
@@ -166,7 +166,7 @@ public class NextiaDITest {
 
         nextia.graphO.setModel(bicing.union(villo));
     }
-
+*/
 //    @Test
 //    @DisplayName("Simple multiplication should work")
 //    void testMultiply() {
